@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FitGuide — Exercises</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    /* Gallery container styling */
+   #muscleGallery {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap; /* allows wrapping on smaller screens */
+  gap: 20px;
+  margin: 30px auto;
+  max-width: 1000px;
+}
+
+#muscleGallery img {
+  width: 30%;
+  min-width: 250px;
+  max-width: 300px;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  object-fit: cover;
+}
+
+  </style>
+</head>
+<body>
+
+  <header class="navbar">
+    <div class="logo">
+      <img src="images/logo.png" alt="FitGuide Logo"/>
+    </div>
+    <div class="menu-btn" aria-label="Toggle navigation">
+      <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+    </div>
+    <div class="nav-links">
+      <ul>
+        <li><a href="html.html">Home</a></li>
+        <li><a href="exercise.html" class="active-link">Exercises</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main class="exercise-library">
+    <h1>Exercise Selection</h1>
+    <div class="muscle-filter">
+      <select id="muscleGroup" aria-label="Select muscle group">
+        <option value="chest">Chest</option>
+        <option value="back">Back</option>
+        <option value="legs">Legs</option>
+        <option value="core">Core</option>
+        <option value="tricep">Tricep</option>
+        <option value="bicep">Bicep</option>
+      </select>
+      <!-- Gallery container for multiple images -->
+      <div id="muscleGallery">
+        <!-- Images will be dynamically inserted here -->
+      </div>
+    </div>
+
+    <section class="exercise-grid">
+      <!-- Chest -->
+      <div class="exercise-card" data-muscle="chest">
+        <div class="gif-container">
+          <img src="images/chest/barbell-bench-press.gif" alt="Barbell Bench Press"/>
+        </div>
+        <div class="exercise-info">
+          <h3>Barbell Bench Press</h3>
+          <p class="muscle-group">Chest</p>
+          <div class="exercise-details">
+            <p><strong>Equipment:</strong> Barbell, Bench</p>
+            <p><strong>Reps:</strong> 8-12</p>
+            <p><strong>Sets:</strong> 3-4</p>
+          </div>
+        </div>
+      </div>
+      <!-- (repeat your other cards here...) -->
+    </section>
+  </main>
+
+  <script>
+    const muscleGroupSelect = document.getElementById('muscleGroup');
+    const muscleGallery = document.getElementById('muscleGallery');
+
+    // Images array per muscle group - update paths to your actual images
+    const muscleImages = {
+
+      chest: [
+       { src: '/images_gif/chess.gif', alt: 'Chest Muscle 1' },
+        { src: '/images_gif/chess1.gif', alt: 'Chest Muscle 2' },
+        { src: '/images_gif/chess2.gif', alt: 'Chest Muscle 3' }
+      ],
+      back: [
+        { src: 'images_gif/back1.gif', alt: 'Back Muscle 1' },
+        { src: 'images_gif/back2.gif', alt: 'Back Muscle 2' },
+        { src: 'images_gif/back3.gif', alt: 'Back Muscle 3' }
+      ],
+      legs: [
+        { src: 'images_gif/legs1.gif', alt: 'Leg Muscles 1' },
+        { src: 'images_gif/legs2.gif', alt: 'Leg Muscles 2' },
+        { src: 'images_gif/legs3.gif', alt: 'Leg Muscles 3' }
+      ],
+      core: [
+        { src: 'images_gif/core.gif', alt: 'Core Muscles 1' },
+      ],
+      tricep: [
+        { src: 'images_gif/tricep.gif', alt: 'Tricep Muscle 1' },
+      ],
+      bicep: [
+        { src: 'images_gif/bicep1.gif', alt: 'Bicep Muscle 1' },
+        { src: 'images_gif/bicep2.gif', alt: 'Bicep Muscle 2' },
+        { src: 'images_gif/bicep3.gif', alt: 'Bicep Muscle 3' }
+      ]
+    };
+
+    function updateGallery(muscle) {
+      muscleGallery.innerHTML = ''; // Clear previous images
+      if (!muscleImages[muscle]) {
+        muscleGallery.style.display = 'none';
+        return;
+      }
+      muscleGallery.style.display = 'flex';
+      muscleImages[muscle].forEach(imgData => {
+        const img = document.createElement('img');
+        img.src = imgData.src;
+        img.alt = imgData.alt;
+        muscleGallery.appendChild(img);
+      });
+    }
+
+    // Initial load - show all muscles
+    updateGallery('all');
+
+    // Listen for changes on dropdown
+    muscleGroupSelect.addEventListener('change', () => {
+      updateGallery(muscleGroupSelect.value);
+    });
+  </script>
+
+</body>
+</html>
